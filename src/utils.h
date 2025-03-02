@@ -15,9 +15,15 @@ void print_answer(std::string task, T answer) {
 
 template <typename T>
 bool is_prime(T number) {
-    T sqrt = std::sqrt(number);
-    for (T i = 2; i < sqrt; ++i) {
-        if (number % i == 0) return false;
+    if (number <= 1) return false;
+    if (number <= 3) return true;
+    
+    if (number % 2 == 0 || number % 3 == 0) return false;
+    
+    for (T i = 5; i * i <= number; ++i) {
+        while (number % i == 0) {
+            return false;
+        }
     }
     return true;
 }
@@ -38,7 +44,6 @@ std::map<T, size_t> get_prime_factors(T number)
 {
     std::map<T, size_t> factors;
     for (T i = 2; i * i <= number; ++i) {
-        //if (number % i == 0) factors[i] = 0;
         while (number % i == 0) {
             factors[i] += 1;
             number /= i;
